@@ -16,7 +16,6 @@ API.interceptors.response.use(function (response) {
     if (token) {
       API.post("/refresh").then(({ data }) => {
         localStorage.setItem("access_token", data.authorization.token);
-        // response.config.headers.Authorization = `Bearer ${data.authorization.token}`;
         API.request(response.config);
       });
     }

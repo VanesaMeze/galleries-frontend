@@ -8,16 +8,19 @@ import { BrowserRouter } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import UserProvider from "./storage/UserProvider";
+import GalleryProvider from "./storage/GalleryProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <BrowserRouter>
-        <Header />
-        <App />
-        <Footer />
-      </BrowserRouter>
+      <GalleryProvider>
+        <BrowserRouter>
+          <Header />
+          <App />
+          <Footer />
+        </BrowserRouter>
+      </GalleryProvider>
     </UserProvider>
   </React.StrictMode>
 );

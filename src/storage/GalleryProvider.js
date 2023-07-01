@@ -1,17 +1,18 @@
 import { useState } from "react";
 import GalleryContext from "./GalleryContext";
+import { createGallery } from "../service/galleriesService";
 
 const GalleryProvider = ({ children }) => {
   const [galleryState, setGalleryState] = useState([]);
 
-  const postNewGallery = (gallery) => {
-    const existingGallery = galleryState.find((c) => c.name === gallery.name);
-    if (existingGallery) {
-      return;
-    }
-    addGallery(animal).then(({ data }) => {
-      setGalleryState((prevState) => [...prevState, data]);
-    });
+  const postNewGallery = (name, description, urls, user_id) => {
+    createGallery(name, description, urls, user_id)
+      .then(({ data }) => {
+        setGalleryState((prevState) => [...prevState, data]);
+      })
+      .catch((error) => {
+        console.error("Error occurred while adding gallery:", error);
+      });
   };
 
   const galleryContext = {

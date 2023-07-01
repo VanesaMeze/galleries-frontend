@@ -19,97 +19,97 @@ const Header = () => {
 
   return (
     <div className="container">
-      <header className="d-flex flex-wrap justify-content-centerborder-bottom">
-        <Link
-          to="/"
-          className="d-flex mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-        >
-          <h1 className="heading">Galleries</h1>
-        </Link>
-        <ul className="nav nav-pills">
-          {signedIn ? (
-            <>
-              <li className="nav-item">
-                <Link to="/" className="nav-link" aria-current="page">
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
+      <header className="p-3 text-bg-black">
+        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <Link
+            to="/"
+            className="d-flex mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+          >
+            <h3
+              className="nav-item px-2"
+              style={{
+                color: "white",
+                fontWeight: "300",
+                fontSize: "1cm",
+              }}
+            >
+              Galleries
+            </h3>
+          </Link>
+          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 align-items-center justify-content-center mb-md-0">
+            {signedIn ? (
+              <>
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className="nav-link px-2 text-white"
+                    aria-current="page"
                   >
                     All Galleries
-                  </button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/my-galleries"
-                  className="nav-link"
-                  aria-current="page"
-                >
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/my-galleries"
+                    className="nav-link px-2 text-white"
+                    aria-current="page"
                   >
                     My Galleries
-                  </button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/create" className="nav-link" aria-current="page">
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/create"
+                    className="nav-link px-2 text-white"
+                    aria-current="page"
                   >
                     Create New Gallery
-                  </button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link" aria-current="page">
-                  <button
-                    className="btn btn-outline-danger w-100 py-2"
-                    type="submit"
-                    onClick={() => handleLogOut()}
-                  >
-                    Log Out
-                  </button>
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item">
-                <Link to="/" className="nav-link" aria-current="page">
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link" aria-current="page">
+                    <button
+                      className="btn button-81"
+                      type="submit"
+                      onClick={() => handleLogOut()}
+                    >
+                      Log Out
+                    </button>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className="nav-link px-2 text-white"
+                    aria-current="page"
                   >
                     All Galleries
-                  </button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
-                  >
-                    Log in
-                  </button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/register" className="nav-link">
-                  <button
-                    className="btn btn-outline-dark w-100 py-2"
-                    type="submit"
-                  >
-                    Register
-                  </button>
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
+                  </Link>
+                </li>{" "}
+                <li
+                  className="nav-item"
+                  style={{ textAlign: "right", border: "0" }}
+                >
+                  <Link to="/login" className="nav-link">
+                    <button className="btn button-81" type="submit">
+                      Log in
+                    </button>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/register" className="nav-link">
+                    <button className="btn button-81" type="submit">
+                      Register
+                    </button>
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </header>
     </div>
   );

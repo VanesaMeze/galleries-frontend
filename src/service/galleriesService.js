@@ -19,3 +19,19 @@ export const createGallery = (name, description, urls) => {
     urls,
   });
 };
+
+export const deleteGalleryById = (id, gallery) => {
+  return API.delete(`/galleries/${id}`, gallery);
+};
+
+export const addComment = (body, gallery_id, user_id) => {
+  return API.post(`/galleries/${gallery_id}/comments`, {
+    body,
+    gallery_id,
+    user_id,
+  });
+};
+
+export const deleteCommentById = (id) => {
+  return API.delete(`/comments/${id}`);
+};

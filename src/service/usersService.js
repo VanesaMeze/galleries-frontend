@@ -26,3 +26,15 @@ export const logIn = (email, password) => {
 export const logOut = () => {
   return API.post("/logout");
 };
+
+export const getUsers = () => {
+  return API.get("/users");
+};
+
+export const getUserById = (id) => {
+  return API.get(`/users/${id}`);
+};
+
+export const getUserGalleries = (id) => {
+  return API.get(`/users/${id}/galleries`);
+};
