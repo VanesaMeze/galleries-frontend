@@ -177,7 +177,7 @@ const ViewGallery = () => {
               </small>
             </figure>
             <div>
-              {signedIn && user.user.id === comment?.user_id ? (
+              {signedIn && user.user?.id === comment?.user_id ? (
                 <button
                   className="btn btn-outline-light"
                   type="delete"
