@@ -12,6 +12,7 @@ import CreateGallery from "./pages/CreateGallery";
 import ViewGallery from "./pages/ViewGallery";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import AuthorsGalleries from "./pages/AuthorsGalleries";
+import FilterGalleries from "./components/FilterGalleries";
 
 function App() {
   const galleryContext = useContext(GalleryContext);
@@ -35,6 +36,8 @@ function App() {
       <Route path="/authors/:id" element={<AuthorsGalleries />}></Route>
 
       <Route path="/" element={<Home />}></Route>
+      <Route path="/search" element={<FilterGalleries />}></Route>
+
       <Route
         path="/my-galleries"
         element={

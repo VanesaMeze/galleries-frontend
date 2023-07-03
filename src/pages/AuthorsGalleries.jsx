@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getUserById, getUserGalleries } from "../service/usersService";
 import { Link, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
-import Pagination from "../components/layout/Pagination";
 
 const AuthorsGalleries = () => {
   const { id } = useParams();
@@ -75,6 +74,10 @@ const AuthorsGalleries = () => {
                     <p className="card-text">{gallery.description}</p>
                     <p className="card-text">
                       <br />
+                      <small>
+                        Author: {author.first_name} {author.last_name}
+                      </small>
+                      <br />
                       <small className="card-text mb-auto">
                         Release date:{" "}
                         {format(parseISO(gallery.created_at), "dd-MM-yyyy")}
@@ -96,7 +99,6 @@ const AuthorsGalleries = () => {
           )}
         </div>
       </div>
-      <Pagination />
     </>
   );
 };

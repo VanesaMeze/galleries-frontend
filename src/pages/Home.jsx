@@ -17,14 +17,16 @@ const Home = () => {
   return (
     <div>
       <div className="container" style={{ margin: "auto" }}>
+        <FilterGalleries data={galleries} />
         {Array.isArray(galleries) && galleries.length > 0 ? (
           <div>
-            <FilterGalleries data={galleries} />
-            <br />
+            <p style={{ color: "rgb(196,174,173)" }}>All galleries</p>
             <GalleryRow galleries={galleries} />
           </div>
         ) : (
-          <p className="container mt-5">No content to show.</p>
+          <p className="container mt-5" style={{ color: "rgb(196,174,173)" }}>
+            No content to show.
+          </p>
         )}
       </div>
     </div>

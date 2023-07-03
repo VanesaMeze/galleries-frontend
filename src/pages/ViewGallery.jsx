@@ -167,7 +167,7 @@ const ViewGallery = () => {
                 {Array.isArray(users)
                   ? (() => {
                       const user = users.find(
-                        (user) => user.id === comment.user_id
+                        (user) => user.id === comment?.user_id
                       );
                       return user
                         ? `${user.first_name} ${user.last_name}`

@@ -30,7 +30,7 @@ const GalleryRow = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {galleries?.map((gallery, id) => (
           <div
@@ -93,7 +93,7 @@ const GalleryRow = () => {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default GalleryRow;
