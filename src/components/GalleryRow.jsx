@@ -17,6 +17,12 @@ const GalleryRow = () => {
     });
   }, [currentPage]);
 
+  const previousTen = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   const loadNextTen = () => {
     if (currentPage < lastPage) {
       setCurrentPage(currentPage + 1);
@@ -67,13 +73,17 @@ const GalleryRow = () => {
                 </Link>
               </div>
             </div>
-
             <br />
           </div>
         ))}
       </div>
       {Array.isArray(galleries) && galleries.length > 1 && (
         <div className="text-center col m-5">
+          <button
+            className="btn arrow-left"
+            onClick={previousTen}
+            disabled={currentPage === 1}
+          ></button>
           <button
             className="btn button-60"
             onClick={loadNextTen}

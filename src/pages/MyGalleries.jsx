@@ -4,6 +4,7 @@ import GalleryRow from "../components/GalleryRow";
 import UserContext from "../storage/UserContext";
 import GalleryContext from "../storage/GalleryContext";
 import { useNavigate } from "react-router-dom";
+import { Pagination } from "react-bootstrap";
 
 const MyGalleries = () => {
   const { galleries, updateGallery } = useContext(GalleryContext);
@@ -36,6 +37,7 @@ const MyGalleries = () => {
           <p className="container mt-5">No content to show.</p>
         )}
       </div>
+      <Pagination />
     </div>
   );
 };

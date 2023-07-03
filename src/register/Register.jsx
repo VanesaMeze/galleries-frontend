@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../service/usersService";
 import UserContext from "../storage/UserContext";
 
@@ -32,6 +32,7 @@ const Register = () => {
       .then(({ data }) => {
         signInUser(data);
         localStorage.setItem("access_token", data.authorisation.token);
+        localStorage.setItem("email", user.email);
         setError("");
         setUser({
           first_name: "",
@@ -41,11 +42,12 @@ const Register = () => {
           password_confirmation: "",
           emailVerified: true,
         });
-        alert("Registration successful, welcome!");
+        alert(`Welcome, ${user.first_name} ${user.last_name}!`);
         navigate("/");
       })
-      .catch(() => {
+      .catch((error) => {
         setError("Email already exists. Please choose another email.");
+        return;
       });
   };
 
@@ -71,12 +73,16 @@ const Register = () => {
           data-bs-theme="dark"
           onSubmit={(e) => {
             handleSubmit(e);
-            navigate("/");
           }}
           className="container"
           style={{ width: "500px", alignItems: "center" }}
         >
           <h1 className="h3 mb-3 fw-normal">Register</h1>
+          {error && (
+            <div className="alert alert-danger mb-4" role="alert">
+              {error}
+            </div>
+          )}
           <div className="form-floating">
             <input
               type="text"
@@ -159,6 +165,11 @@ const Register = () => {
           <button className="btn btn-outline-light w-100 py-2" type="submit">
             Register
           </button>
+          <br />
+          <br />
+          <p className="mb-5 pb-lg-2 text-center">
+            Already have account? <Link to="/register">Register here</Link>
+          </p>
         </form>
       </div>
     </>

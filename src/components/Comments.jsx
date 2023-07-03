@@ -1,8 +1,8 @@
-const Comments = ({ comments, handleDelete, user, signedIn, gallery }) => {
+const Comments = ({ comments, handleDelete, user, signedIn }) => {
   return (
     <div
       className="container mt-5 justify-content-center"
-      style={{ width: "500px", color: "rgb(229,228,226)" }}
+      style={{ width: "500px", color: "rgb(229,228,226)", margin: "0 auto" }}
     >
       {comments?.map((comment) => (
         <div key={comment?.id} className="comment">
@@ -15,7 +15,7 @@ const Comments = ({ comments, handleDelete, user, signedIn, gallery }) => {
               title="Source Title"
               style={{ color: "rgb(196,174,173)" }}
             >
-              Author: {gallery?.user.first_name} {gallery?.user.last_name}
+              Author: {user?.user.first_name} {user?.user.last_name}
             </small>
           </figure>
           {signedIn && user.user?.id === comment?.user_id ? (

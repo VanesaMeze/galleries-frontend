@@ -1,7 +1,7 @@
 import { API } from "../shared/api";
 
-export const getGalleries = (currentPage) => {
-  return API.get(`/galleries?page=${currentPage}`);
+export const getGalleries = (currentPage, params) => {
+  return API.get(`/galleries?page=${currentPage}`, { params });
 };
 
 export const getGalleryById = (id) => {
@@ -12,11 +12,12 @@ export const editGalleryById = (id, gallery) => {
   return API.put(`/galleries/${id}`, gallery);
 };
 
-export const createGallery = (name, description, urls) => {
+export const createGallery = (name, description, urls, user_id) => {
   return API.post("/galleries", {
     name,
     description,
     urls,
+    user_id,
   });
 };
 

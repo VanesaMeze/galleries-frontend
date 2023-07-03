@@ -13,6 +13,7 @@ const CreateNewGalleryForm = () => {
   const [urls, setUrls] = useState([""]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [gallery, setGallery] = useState({
     name: "",
@@ -20,8 +21,6 @@ const CreateNewGalleryForm = () => {
     urls: [],
     user_id: user.user?.id,
   });
-
-  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
@@ -33,14 +32,6 @@ const CreateNewGalleryForm = () => {
       navigate("/login");
     }
   }, [id]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setGallery((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,28 +74,28 @@ const CreateNewGalleryForm = () => {
           "Please enter a URL ending with a valid image extension (png, jpg, jpeg)."
         );
       }
-
-      if (id) {
-        editGalleryById(id, gallery);
-      } else {
-        createGallery(
-          gallery.name,
-          gallery.description,
-          gallery.urls,
-          user.user?.id
-        );
-      }
-
-      setError("");
-      setGallery({
-        name: "",
-        description: "",
-        urls: [],
-        userIdd: user.user?.id,
-      });
-
-      navigate("/");
     }
+
+    if (id) {
+      editGalleryById(id, gallery);
+    } else {
+      createGallery(
+        gallery.name,
+        gallery.description,
+        gallery.urls,
+        user.user?.id
+      );
+    }
+
+    setError("");
+    setGallery({
+      name: "",
+      description: "",
+      urls: [],
+      userIdd: user.user?.id,
+    });
+
+    navigate("/my-galleries");
   };
 
   const handleUrlChange = (index, value) => {
@@ -131,6 +122,14 @@ const CreateNewGalleryForm = () => {
     setGallery((prevState) => ({
       ...prevState,
       urls: newUrls,
+    }));
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setGallery((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
   };
 
@@ -186,35 +185,39 @@ const CreateNewGalleryForm = () => {
               </div>
               <div></div>
               <div className="form-floating mt-3">
-                {urls.map((url, index) => (
-                  <div
-                    className="form-group col-sm-6 flex-column d-flex"
-                    key={index}
-                  >
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="Enter image url"
-                      value={url}
-                      onChange={(e) => handleUrlChange(index, e.target.value)}
-                      required
-                      pattern=".*\.(png|jpg|jpeg)$"
-                      title="Please enter a valid image URL ending with .png, .jpg, or .jpeg"
-                    />
-                    <label htmlFor="url"></label>
-                    <br />
-
-                    {index > 0 && (
-                      <button
-                        type="button"
-                        className="btn btn-outline-danger btn-sm mt-2 mb-2"
-                        onClick={() => removeUrlField(index)}
+                {Array.isArray(urls)
+                  ? urls.map((url, index) => (
+                      <div
+                        className="form-group col-sm-6 flex-column d-flex"
+                        key={index}
                       >
-                        Remove URL
-                      </button>
-                    )}
-                  </div>
-                ))}
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Enter image url"
+                          value={url}
+                          onChange={(e) =>
+                            handleUrlChange(index, e.target.value)
+                          }
+                          required
+                          pattern=".*\.(png|jpg|jpeg)$"
+                          title="Please enter a valid image URL ending with .png, .jpg, or .jpeg"
+                        />
+                        <label htmlFor="url"></label>
+                        <br />
+
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm mt-2 mb-2"
+                            onClick={() => removeUrlField(index)}
+                          >
+                            Remove URL
+                          </button>
+                        )}
+                      </div>
+                    ))
+                  : null}
                 <div className="form-group col-sm-6">
                   <button
                     type="button"

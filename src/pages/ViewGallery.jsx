@@ -8,6 +8,8 @@ import {
 import Carousel from "react-bootstrap/Carousel";
 import AddComments from "../components/AddComments";
 import UserContext from "../storage/UserContext";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
+import { getUsers } from "../service/usersService";
 
 const ViewGallery = () => {
   const { signedIn, user } = useContext(UserContext);
@@ -17,6 +19,12 @@ const ViewGallery = () => {
   const formattedDate = new Date(gallery.created_at).toLocaleString();
   const urls = gallery.urls?.split(",") || [];
   const [comments, setComments] = useState([]);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    getUsers().then(({ data }) => {
+      setUsers(data.users);
+    });
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -118,23 +126,28 @@ const ViewGallery = () => {
         </Carousel>
       </div>
       <br />
-      <div
-        className="row row-cols-2 justify-content-center"
-        style={{ margin: "0 auto", width: "200px" }}
-      >
-        <Link
-          className="btn btn-outline-light"
-          to={`/edit-gallery/${gallery.id}`}
+      {signedIn && user.user.id === gallery.user_id ? (
+        <div
+          className="row row-cols-2 justify-content-center"
+          style={{ margin: "0 auto", width: "200px" }}
         >
-          Edit
-        </Link>{" "}
-        <button className="btn btn-outline-light" onClick={handleDeleteGallery}>
-          Delete
-        </button>
-      </div>
-      {signedIn ? (
-        <AddComments galleryId={id} setComments={setComments} />
-      ) : null}
+          <Link
+            className="btn btn-outline-light"
+            to={`/edit-gallery/${gallery.id}`}
+          >
+            Edit
+          </Link>{" "}
+          <button
+            className="btn btn-outline-light"
+            onClick={handleDeleteGallery}
+          >
+            Delete
+          </button>
+        </div>
+      ) : (
+        isDisabled
+      )}
+
       <div
         className="container mt-5 justify-content-center"
         style={{ width: "500px", color: "rgb(229,228,226)" }}
@@ -150,21 +163,38 @@ const ViewGallery = () => {
                 title="Source Title"
                 style={{ color: "rgb(196,174,173)" }}
               >
-                Author: {user.user?.first_name} {user.user?.last_name}
+                Author:{" "}
+                {Array.isArray(users)
+                  ? (() => {
+                      const user = users.find(
+                        (user) => user.id === comment.user_id
+                      );
+                      return user
+                        ? `${user.first_name} ${user.last_name}`
+                        : null;
+                    })()
+                  : null}
               </small>
             </figure>
-            {signedIn && user.user.id === comment?.user_id ? (
-              <button
-                className="btn btn-outline-light"
-                type="delete"
-                onClick={() => handleDelete(comment?.id)}
-              >
-                Delete Comment
-              </button>
-            ) : null}
-            <hr />
+            <div>
+              {signedIn && user.user.id === comment?.user_id ? (
+                <button
+                  className="btn btn-outline-light"
+                  type="delete"
+                  onClick={() => handleDelete(comment?.id)}
+                >
+                  Delete Comment
+                </button>
+              ) : null}
+              <hr />
+            </div>
           </div>
         ))}
+      </div>
+      <div>
+        {signedIn ? (
+          <AddComments key={id} galleryId={id} setComments={setComments} />
+        ) : null}
       </div>
     </div>
   );

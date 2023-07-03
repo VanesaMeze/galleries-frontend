@@ -7,14 +7,14 @@ const AddComments = ({ galleryId, setComments }) => {
   const [comment, setComment] = useState({
     body: "",
     gallery_id: galleryId,
-    user_id: user.user.id,
+    user_id: user.user?.id,
   });
 
   const resetInput = () => {
     setComment({
       body: "",
       gallery_id: galleryId,
-      user_id: user.user.id,
+      user_id: user.user?.id,
     });
   };
 
@@ -29,14 +29,14 @@ const AddComments = ({ galleryId, setComments }) => {
   const handleAdd = (event, comment) => {
     event.preventDefault();
 
-    addComment(comment.body, galleryId, user.user.id);
+    addComment(comment.body, galleryId, user.user?.id);
 
     setComments((prevState) => [
       ...prevState,
       {
         body: comment.body,
         gallery_id: galleryId,
-        user_id: user.user.id,
+        user_id: user.user?.id,
       },
       console.log(user),
     ]);
@@ -62,7 +62,7 @@ const AddComments = ({ galleryId, setComments }) => {
             placeholder="Enter your comment..."
             className="form-control"
             name="body"
-            style={{ width: "700px" }}
+            style={{ width: "500px" }}
           >
             {user.user.first_name} {user.user.last_name}
           </textarea>

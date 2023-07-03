@@ -20,6 +20,7 @@ const Home = () => {
         {Array.isArray(galleries) && galleries.length > 0 ? (
           <div>
             <FilterGalleries data={galleries} />
+            <br />
             <GalleryRow galleries={galleries} />
           </div>
         ) : (

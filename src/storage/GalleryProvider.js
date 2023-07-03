@@ -18,7 +18,7 @@ const GalleryProvider = ({ children }) => {
   const galleryContext = {
     galleries: galleryState,
     updateGallery: setGalleryState,
-    addGallery: postNewGallery,
+    createGallery: postNewGallery,
   };
   return (
     <GalleryContext.Provider value={galleryContext}>

@@ -1,27 +1,30 @@
 import { useState } from "react";
+import GalleryRow from "./GalleryRow";
 
 const FilterGalleries = ({ data }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-  const [state, setState] = useState({
-    search: "",
-  });
-
-  const [galleriesCopy, setGalleriesCopy] = useState([""]);
-
-  const handleSearch = (event, name) => {
-    event.preventDefault();
-    setGalleriesCopy(
-      galleriesCopy.filter((gallery) => gallery.name?.includes(name))
-    );
-  };
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
 
     const newFilter = data.filter((value) => {
-      return value.name.toLowerCase().includes(searchWord.toLowerCase());
+      return value.name
+        .toLowerCase()
+        .includes(
+          searchWord.toLowerCase() ||
+            value.description
+              .toLowerCase()
+              .includes(searchWord.toLowerCase()) ||
+            value.user.first_name
+              .toLowerCase()
+              .includes(searchWord.toLowerCase()) ||
+            value.user.last_name
+              .toLowerCase()
+              .includes(searchWord.toLowerCase())
+        );
     });
 
     if (searchWord === "") {
@@ -29,6 +32,7 @@ const FilterGalleries = ({ data }) => {
     } else {
       setFilteredData(newFilter);
     }
+    setIsFiltered(true);
   };
 
   return (
@@ -36,7 +40,7 @@ const FilterGalleries = ({ data }) => {
       <form
         data-bs-theme="dark"
         className="d-flex mt-3"
-        style={{ width: "500px" }}
+        style={{ width: "500px", margin: "0 auto" }}
         role="search"
       >
         <input
@@ -49,11 +53,7 @@ const FilterGalleries = ({ data }) => {
           placeholder="Search Galleries"
           aria-label="Search"
         />
-        <button
-          onClick={(e) => handleSearch(e, state.search)}
-          className="btn button-60"
-          type="submit"
-        >
+        <button className="btn button-60" type="submit">
           Search
         </button>
       </form>
